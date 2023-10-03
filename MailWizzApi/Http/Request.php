@@ -162,6 +162,7 @@ class MailWizzApi_Http_Request extends MailWizzApi_Base
         $curlMessage    = (string)curl_error($ch);
 
         $curlInfo = curl_getinfo($ch);
+        // print_r($curlInfo);die;
         $params = $this->params = new MailWizzApi_Params($curlInfo);
 
         if ($curlCode === 0 && $client->getResponseHeaders) {
@@ -223,7 +224,6 @@ class MailWizzApi_Http_Request extends MailWizzApi_Base
         foreach ($this->getEventHandlers(self::EVENT_AFTER_SEND_REQUEST) as $callback) {
             $response = call_user_func_array($callback, array($this, $response));
         }
-
         return $response;
     }
 

@@ -12,6 +12,7 @@ require_once dirname(__FILE__) . '/setup.php';
 
 // CREATE THE ENDPOINT
 $endpoint = new MailWizzApi_Endpoint_Customers();
+
 /*===================================================================================*/
 
 // CREATE CUSTOMER
@@ -19,9 +20,10 @@ $response = $endpoint->create(array(
     'customer' => array(
         'first_name' => 'John',
         'last_name'  => 'Doe',
-        'email'      => 'john.doe@doe.com',
+        'email'      => 'john.doetest@doe.com',
         'password'   => 'superDuperPassword',
         'timezone'   => 'UTC',
+        'birthDate' => '01-06-1996'
     ),
     // company is optional, unless required from app settings
     'company'  => array(
@@ -38,4 +40,23 @@ $response = $endpoint->create(array(
 // DISPLAY RESPONSE
 echo '<hr /><pre>';
 print_r($response->body);
+echo '</pre>';
+die;
+
+
+// Get Customer Details CUSTOMER
+// ------------------------------------------------------------
+// $customer_id=4;
+// $customerDetails = $endpoint->getDetails($customer_id);
+
+// -----------------------------------------------------------
+// create Api Key for customer
+
+// $customer_id=4;
+// $customerKeyCreate = $endpoint->createApiKey(['customer_id'=>$customer_id]);
+
+
+// DISPLAY RESPONSE
+echo '<hr /><pre>';
+print_r($customerKeyCreate->body);
 echo '</pre>';

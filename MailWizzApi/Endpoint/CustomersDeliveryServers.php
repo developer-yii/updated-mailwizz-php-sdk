@@ -16,7 +16,7 @@
  * @subpackage Endpoint
  * @since 1.0
  */
-class MailWizzApi_Endpoint_Customers extends MailWizzApi_Base
+class MailWizzApi_Endpoint_CustomersDeliveryServers extends MailWizzApi_Base
 {
     /**
      * Create a new mail list for the customer
@@ -32,42 +32,50 @@ class MailWizzApi_Endpoint_Customers extends MailWizzApi_Base
      */
     public function create(array $data)
     {
-        if (isset($data['customer']['password'])) {
-            $data['customer']['confirm_password'] = $data['customer']['password'];
-        }
-        
-        if (isset($data['customer']['email'])) {
-            $data['customer']['confirm_email'] = $data['customer']['email'];
-        }
-        
-        if (empty($data['customer']['timezone'])) {
-            $data['customer']['timezone'] = 'UTC';
-        }
-        
         $client = new MailWizzApi_Http_Client(array(
             'method'        => MailWizzApi_Http_Client::METHOD_POST,
-            'url'           => $this->getConfig()->getApiUrl('customers'),
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers/create'),
             'paramsPost'    => $data,
         ));
         
         return $response = $client->request();
     }
-    public function getDetails($customer_id)
+    public function getList(array $data)
     {
         $client = new MailWizzApi_Http_Client(array(
             'method'        => MailWizzApi_Http_Client::METHOD_POST,
-            'url'           => $this->getConfig()->getApiUrl('customers').'/getdetails?customer_id='.$customer_id,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers/create'),
+            'paramsPost'    => $data,
+        ));
+        
+        return $response = $client->request();
+    }
+    public function update($server_id,array $data)
+    {
+        $client = new MailWizzApi_Http_Client(array(
+            'method'        => MailWizzApi_Http_Client::METHOD_POST,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers').'/update?server_id='.$server_id,
+            'paramsPost'    => $data,
+        ));
+        
+        return $response = $client->request();
+    }
+    public function delete($server_id)
+    {
+        $client = new MailWizzApi_Http_Client(array(
+            'method'        => MailWizzApi_Http_Client::METHOD_POST,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers').'/delete?server_id='.$server_id,
             'paramsPost'    => [],
         ));
         
         return $response = $client->request();
     }
-    public function createApiKey($data)
+    public function assingSmtp($server_id,$customer_id)
     {
         $client = new MailWizzApi_Http_Client(array(
             'method'        => MailWizzApi_Http_Client::METHOD_POST,
-            'url'           => $this->getConfig()->getApiUrl('customers').'/createapikey',
-            'paramsPost'    => $data,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers').'/assign_smtp?server_id='.$server_id.'&customer_id='.$customer_id,
+            'paramsPost'    => [],
         ));
         
         return $response = $client->request();

@@ -7,7 +7,7 @@
  * @copyright 2013-2020 https://www.mailwizz.com/
  */
 
-exit('COMMENT ME TO TEST THE EXAMPLES!');
+// exit('COMMENT ME TO TEST THE EXAMPLES!');
 
 // require the autoloader class if you haven't used composer to install the package
 require_once dirname(__FILE__) . '/../MailWizzApi/Autoloader.php';
@@ -34,11 +34,25 @@ MailWizzApi_Autoloader::register();
  * Please see MailWizzApi/Cache for a list of available cache components and their usage.
  */
 
+// // configuration object
+// $config = new MailWizzApi_Config(array(
+//     'apiUrl'        => 'http://www.mailwizz-powered-website.tld/api',
+//     'publicKey'     => 'PUBLIC-KEY',
+//     'privateKey'    => 'PRIVATE-KEY',
+
+//     // components
+//     'components' => array(
+//         'cache' => array(
+//             'class'     => 'MailWizzApi_Cache_File',
+//             'filesPath' => dirname(__FILE__) . '/../MailWizzApi/Cache/data/cache', // make sure it is writable by webserver
+//         )
+//     ),
+// ));
 // configuration object
 $config = new MailWizzApi_Config(array(
-    'apiUrl'        => 'http://www.mailwizz-powered-website.tld/api',
-    'publicKey'     => 'PUBLIC-KEY',
-    'privateKey'    => 'PRIVATE-KEY',
+    'apiUrl'        => 'http://mailwizz.test/mailwizz-2.3.5/latest/api/index.php',
+    'publicKey'     => 'f1aad754a12c970227dff411404c24d7516984fe',
+    'privateKey'    => 'f1aad754a12c970227dff411404c24d7516984fe',
 
     // components
     'components' => array(
