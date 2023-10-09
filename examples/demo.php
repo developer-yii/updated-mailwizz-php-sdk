@@ -17,18 +17,23 @@ $DeliveryServerendpoint = new MailWizzApi_Endpoint_CustomersDeliveryServers();
 /*===================================================================================*/
 
 // CREATE CUSTOMER
+$randomEmail=generateRandomEmail();
+$randomCompanyName = generateRandomCompanyName();
+$first_name=getRandomFirstName();
+$last_name=getRandomLastName();
+
 $response = $endpoint->create(array(
     'customer' => array(
-        'first_name' => 'John',
-        'last_name'  => 'Doe',
-        'email'      => 'sukunjmendpara.mailwizz@mailinator.com',
-        'password'   => 'superDuperPassword',
+        'first_name' => $first_name, // John 
+        'last_name'  => $last_name, // Doe
+        'email'      => $randomEmail,
+        'password'   => 'password',
         'timezone'   => 'UTC',
         'birthDate' => '01-06-1996'
     ),
     // company is optional, unless required from app settings
     'company'  => array(
-        'name'     => 'John Doe LLC',
+        'name'     => $randomCompanyName,// GLOBAL Innovative, LLC
         'country'  => 'United States', // see the countries endpoint for available countries and their zones
         'zone'     => 'New York', // see the countries endpoint for available countries and their zones
         'city'     => 'Brooklyn',
@@ -76,23 +81,33 @@ if($response_data['status']=="success"){
 
     // Assing New SMTP to this customer.
     if(!empty($customer_id)){
-
-        $delivery_servers_id=18;
-        $response = $DeliveryServerendpoint->assingSmtp($delivery_servers_id,$customer_id);
-        $response_data=$response->body->toArray();
-        if($response_data['status']=="success"){
-            echo '</pre>';
-            echo "New SMTP has been assinged to the customer successfully, please check following details";
-            echo "<br/>";
-            echo json_encode($response_data);
-            echo "<hr>";
+        $unAssignedServer = $DeliveryServerendpoint->getUnassignedServer();
+        $unAssignedServer=$unAssignedServer->body->toArray();
+        if($unAssignedServer['status']=="success"){
+            $unAssignedServerId=$unAssignedServer['data']['record']['server_id'];
+            $response = $DeliveryServerendpoint->assingSmtp($unAssignedServerId,$customer_id);
+            $response_data=$response->body->toArray();
+            if($response_data['status']=="success"){
+                echo '</pre>';
+                echo "New SMTP has been assinged to the customer successfully, please check following details";
+                echo "<br/>";
+                echo json_encode($response_data);
+                echo "<hr>";
+            }
+            else{
+                echo '</pre>';
+                echo "failed to assing SMTP to the customer";
+                echo json_encode($response_data);  
+                echo "<hr>";
+            } 
         }
         else{
             echo '</pre>';
-            echo "failed to assing SMTP to the customer";
-            echo json_encode($response_data);  
+            echo "No unassinged server found";
+            echo "<br/>";
+            echo json_encode($unAssignedServer);
             echo "<hr>";
-        } 
+        }
 
     }
 }

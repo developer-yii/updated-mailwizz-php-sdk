@@ -80,4 +80,25 @@ class MailWizzApi_Endpoint_CustomersDeliveryServers extends MailWizzApi_Base
         
         return $response = $client->request();
     }
+    public function getUnassignedServer()
+    {
+        $client = new MailWizzApi_Http_Client(array(
+            'method'        => MailWizzApi_Http_Client::METHOD_POST,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers').'/get_unassigned_server',
+            'paramsPost'    => [],
+        ));
+        
+        return $response = $client->request();
+    }
+    public function getAllUnassignedServer()
+    {
+        $client = new MailWizzApi_Http_Client(array(
+            'method'        => MailWizzApi_Http_Client::METHOD_POST,
+            'url'           => $this->getConfig()->getApiUrl('customer_delivery_servers').'/index?assign_status=unassigned',
+            'paramsPost'    => [],
+        ));
+        
+        return $response = $client->request();
+    }
+    
 }

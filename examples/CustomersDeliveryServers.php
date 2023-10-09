@@ -14,17 +14,18 @@ require_once dirname(__FILE__) . '/setup.php';
 $endpoint = new MailWizzApi_Endpoint_CustomersDeliveryServers();
 /*===================================================================================*/
 
+$email=generateRandomEmail();
 // CREATE Delivery Server
 $data = [
     'DeliveryServerSmtp' => [
-        'name' => 'Mail server two',
+        'name' => 'SERVER A',
         'hostname' => 'sandbox.smtp.mailtrap.io',
-        'username' => 'john.doe@mailinator.com',
-        'password' => 'superDuperPassword',
-        'port' => '25',
+        'username' => '6179cessff81dd0fs56',
+        'password' => 'aa6cc66ssc5dd2fs320',
+        'port' => '2525',
         'protocol' => '',
-        'from_email' => 'radheshyam.amcodr@gmail.com',
-        'from_name' => 'Radheshyam',
+        'from_email' => $email, // 'second.customer@mailinator.com',
+        'from_name' => 'Second Customer',
         'probability' => '100',
         'hourly_quota' => '0',
         'daily_quota' => '0',
@@ -41,9 +42,10 @@ $data = [
         'max_connection_messages' => '1',
         // 'customer_id' => '4',
         'locked' => 'no',
+        'status'=>'active',
         'warmup_plan_id' => '',
     ],
-    'customer' => 'Radheshyam Gohel',
+    'customer' => 'Second Customer',
     'warmup-plan' => '',
     'DeliveryServerSmtpType' => 'smtp',
 ];
@@ -53,7 +55,7 @@ $response = $endpoint->create($data);
 echo '<hr /><pre>';
 print_r($response->body);
 echo '</pre>';
-
+die;
 
 // update Delivery Server details
 $delivery_servers_id=15;
@@ -105,3 +107,10 @@ $data = [
 // echo '<hr /><pre>';
 // print_r($response->body);
 // echo '</pre>';
+
+
+// $response = $endpoint->getAllUnassignedServer();
+// echo '<hr /><pre>';
+// print_r($response->body);
+// echo '</pre>';
+// die;

@@ -68,3 +68,31 @@ MailWizzApi_Base::setConfig($config);
 
 // start UTC
 date_default_timezone_set('UTC');
+
+function generateRandomEmail($length = 10) {
+    $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    $email = '';
+    for ($i = 0; $i < $length; $i++) {
+        $email .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    $email=$email.rand(000, 999999);
+    $email .= '@mailinator.com'; // You can change the domain as needed
+    return $email;
+}
+function generateRandomCompanyName() {
+    $adjectives = ['Creative', 'Innovative', 'Global', 'Dynamic', 'Tech', 'Digital', 'Smart', 'Awesome', 'Unique', 'Eco'];
+    $nouns = ['Solutions', 'Systems', 'Services', 'Group', 'Enterprises', 'Technologies', 'Innovations', 'Labs', 'Corp', 'Inc'];
+
+    $randomAdjective = $adjectives[array_rand($adjectives)];
+    $randomNoun = $nouns[array_rand($nouns)];
+
+    return $randomAdjective . ' ' . $randomNoun;
+}
+function getRandomFirstName() {
+    $firstNames = ['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia', 'James', 'Sophia', 'Robert', 'Emma'];
+    return $firstNames[array_rand($firstNames)];
+}
+function getRandomLastName() {
+    $lastNames = ['Smith', 'Johnson', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas'];
+    return $lastNames[array_rand($lastNames)];
+}
